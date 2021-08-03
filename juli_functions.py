@@ -1725,10 +1725,10 @@ def plot_arrows(ax1, udata, vdata, lonproj, latproj, proj, units_labels, arrow_s
     if plot_key: qk = plt.quiverkey(Q, plot_key_pos[0], plot_key_pos[1], arrow_length, str(arrow_length)+' '+units_labels, labelpos='S', coordinates='axes', labelsep=labelsep)
     #qk.text.set_backgroundcolor('w')
 
-def plot_line(ax1, data_x, data_y, xticks, yticks, ylims, xlabel, ylabel, label='', title='', xticksrot = 90, color=None, ls=None):
+def plot_line(ax1, data_x, data_y, xticks, yticks, ylims, xlabel, ylabel, label='', title='', xticksrot = 90, color=None, ls=None, **kwargs):
     import matplotlib.pyplot as plt
 
-    plt.plot(data_x, data_y, label=label, color=color, ls=ls) 
+    plt.plot(data_x, data_y, label=label, color=color, ls=ls, **kwargs) 
     plt.xticks(xticks, rotation=xticksrot)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
