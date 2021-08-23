@@ -305,7 +305,7 @@ def files_dict():
              'lowcc': 'CLIM/Data/1980-2012/lowcc/lowcc_198001_201212_sSA.nc',
              'totcc': 'CLIM/Data/1980-2012/totcc/totcc_198001_201212_sSA.nc',
              'precwtr': 'CLIM/Data/1980-2012/precwtr/precwtr_198001_201212_sSA.nc',
-             'sm1': 'CLIM/Data/1980-2012/sm/sm1_198001_201212_sSA.nc',
+             'sm1': 'CLIM/Data/1980-2012/sm/sm1_198001_201212_sSA_fixed.nc',
              't900': 'CLIM/Data/1980-2012/t/t900_198001_201212_sSA.nc',
              'gpot900': 'CLIM/Data/1980-2012/gpot/gpot900_198001_201212_sSA.nc',
              'gpot200': 'CLIM/Data/1980-2012/gpot/gpot200_198001_201212_sSA.nc',
