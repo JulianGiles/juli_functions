@@ -9,14 +9,14 @@ Created on Mon May  6 11:36:22 2019
 #%% --------- mult_hd multiplicadores para ajustar unidades -----------------
 def unit_multipliers(): #para ajustar las unidades de los datasets a un común
 
-    mult_hd = {'pre': {'RCA4':[24,0], 'RCA4CLIM':[24,0], 'LMDZ':[8,0], 'LMDZCLIM':[1,0], 'JRA-55':[8,0], 'ERA5':[24*1000,0], 'TRMM-3B42':[8,0], 'CMORPH':[8,0], 'CRU':[1/30,0], 'GLEAM+CMORPH+ERA5':[8,0]},
+    mult_hd = {'pre': {'RCA4':[24,0], 'RCA4CLIM':[24,0], 'LMDZ':[8,0], 'LMDZCLIM':[1,0], 'JRA-55':[8,0], 'ERA5':[24*1000,0], 'TRMM-3B42':[8,0], 'CMORPH':[8,0], 'CRU':[1/30,0], 'GLEAM+CMORPH+ERA5':[8,0], 'GLDASNOAH+CMORPH+ERA5':[8,0]},
                 'pre_nodrizzle': {'RCA4':[8,0], 'RCA4CLIM':[8,0], 'LMDZ':[8,0], 'LMDZCLIM':[1,0], 'JRA-55':[8,0], 'TRMM-3B42':[8,0], 'CMORPH':[8,0]},
              'lhf': {'RCA4':[-1,0], 'RCA4CLIM':[-1,0], 'LMDZ':[-1,0],'LMDZCLIM':[-1,0], 'JRA-55':[1,0], 'ERA5':[-1,0]},
              'shf': {'RCA4':[-1,0], 'RCA4CLIM':[-1,0], 'LMDZ':[-1,0],'LMDZCLIM':[-1,0], 'JRA-55':[1,0], 'ERA5':[-1,0]},
              'lwr': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[-1,0], 'ERA5':[1,0]},
              'swr': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[-1,0], 'ERA5':[1,0]},
              't2m': {'RCA4':[1,-273.15], 'RCA4CLIM':[1,-273.15], 'LMDZ':[1,-273.15], 'LMDZCLIM':[1,-273.15], 'JRA-55':[1,-273.15], 'ERA5':[1,-273.15]},
-             'evapot': {'RCA4':[24,0], 'RCA4CLIM':[24,0], 'LMDZ':[86400,0], 'LMDZCLIM':[86400,0], 'JRA-55':[0.0352512,0], 'ERA5':[-60*60*24,0], 'GLEAM+CMORPH+ERA5':[1,0]},
+             'evapot': {'RCA4':[24,0], 'RCA4CLIM':[24,0], 'LMDZ':[86400,0], 'LMDZCLIM':[86400,0], 'JRA-55':[0.0352512,0], 'ERA5':[-60*60*24,0], 'GLEAM+CMORPH+ERA5':[1,0], 'GLDASNOAH+CMORPH+ERA5':[1,0]},
              'slp': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              
              'u1000': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
@@ -41,7 +41,7 @@ def unit_multipliers(): #para ajustar las unidades de los datasets a un común
              'q900': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0],'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              'qu2d': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0],'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              'qv2d': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0],'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
-             'vimfc2d': {'RCA4':[86400,0], 'RCA4CLIM':[86400,0], 'LMDZ':[86400,0],'LMDZCLIM':[86400,0], 'JRA-55':[86400,0], 'ERA5':[-86400,0], 'GLEAM+CMORPH+ERA5':[-86400,0]},
+             'vimfc2d': {'RCA4':[86400,0], 'RCA4CLIM':[86400,0], 'LMDZ':[86400,0],'LMDZCLIM':[86400,0], 'JRA-55':[86400,0], 'ERA5':[-86400,0], 'GLEAM+CMORPH+ERA5':[-86400,0], 'GLDASNOAH+CMORPH+ERA5':[-86400,0]},
              'uv900conv': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0],'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[-1,0]},
              'uv850conv': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0],'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[-1,0]},
              'u10m': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
@@ -64,7 +64,7 @@ def unit_multipliers(): #para ajustar las unidades de los datasets a un común
              'gpot900': {'RCA4':[1/9.8,0], 'RCA4CLIM':[1/9.8,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              'gpot200': {'RCA4':[1/9.8,0], 'RCA4CLIM':[1/9.8,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              
-             'sm1': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0], 'GLEAM+CMORPH+ERA5':[1,0]},
+             'sm1': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0], 'GLEAM+CMORPH+ERA5':[1,0], 'GLDASNOAH+CMORPH+ERA5':[1,0]},
              'swa': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              'EF': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]}, #para pasar los datos a mm/day y correr la T a Celsius
              'EF_v2': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
@@ -72,7 +72,7 @@ def unit_multipliers(): #para ajustar las unidades de los datasets a un común
              'cloudbot': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              'totcc': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[0.01,0], 'ERA5':[1,0]},
              'lowcc': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[0.01,0], 'ERA5':[1,0]},
-             'orog': {'RCA4':[1/9.8,0], 'RCA4CLIM':[1/9.8,0], 'LMDZ':[1/9.8,0], 'LMDZCLIM':[1/9.8,0], 'JRA-55':[1/9.8,0], 'ERA5':[1/9.8,0], 'GLEAM+CMORPH+ERA5':[1/9.8,0]}} 
+             'orog': {'RCA4':[1/9.8,0], 'RCA4CLIM':[1/9.8,0], 'LMDZ':[1/9.8,0], 'LMDZCLIM':[1/9.8,0], 'JRA-55':[1/9.8,0], 'ERA5':[1/9.8,0], 'GLEAM+CMORPH+ERA5':[1/9.8,0], 'GLDASNOAH+CMORPH+ERA5':[1/9.8,0]}} 
     
     return mult_hd
 
@@ -440,11 +440,19 @@ def files_dict():
     
     files['GLEAM'] = {'sm1': 'GLEAM/v3.5a/daily/*/SMsurf_*_GLEAM_v3.5a.nc',
                       'evapot': 'GLEAM/v3.5a/daily/*/E_*_GLEAM_v3.5a.nc'}
+
+    files['GLDASNOAH'] = {'sm1': 'GLDAS_Noah_v2/*.nc'}
     
     files['ESACCI'] = {'sm1': 'ESA_CCI_SM-v06.1/COMBINED/*/ESACCI-SOILMOISTURE-L3S-SSMV-COMBINED-*-fv06.1.nc'}
 
     files['GLEAM+CMORPH+ERA5'] = {'pre': 'CMORPH/CMORPH_V1.0_CRT_0.25deg-3HLY_cut.nc',
                              'sm1': 'GLEAM/v3.5a/daily/*/SMsurf_*_GLEAM_v3.5a.nc',
+                             'vimfc2d': 'ERA5/single_level_vars/mean_vertically_integrated_moisture_divergence/mean_vertically_integrated_moisture_divergence_year_*.nc',
+                             'orog': 'ERA5/single_level_vars/orography_geopotential_rotated.nc',
+                             'lsmask': 'ERA5/single_level_vars/land-sea_mask_rotated.nc'}
+
+    files['GLDASNOAH+CMORPH+ERA5'] = {'pre': 'CMORPH/CMORPH_V1.0_CRT_0.25deg-3HLY_cut.nc',
+                             'sm1': 'GLDAS_Noah_v2/*.nc',
                              'vimfc2d': 'ERA5/single_level_vars/mean_vertically_integrated_moisture_divergence/mean_vertically_integrated_moisture_divergence_year_*.nc',
                              'orog': 'ERA5/single_level_vars/orography_geopotential_rotated.nc',
                              'lsmask': 'ERA5/single_level_vars/land-sea_mask_rotated.nc'}
@@ -599,6 +607,12 @@ def load_datasets (models, var_list, start_date, end_date, data_path, homepath, 
                 
             if model == 'GLEAM':
                 data[model][var][''] = data_xr[model][var].loc[{'time':slice(start_date, end_date), lat_name:slice(latlims[0], latlims[1],-1), lon_name:slice(278-360, 326-360)}][[str(var_name) for var_name in set(var_temp.keys())][0]][:,:,:]
+
+            if model == 'GLDASNOAH':
+                try:
+                    data[model][var][''] = data_xr[model][var].loc[{'time':slice(start_date, end_date), lat_name:slice(latlims[0], latlims[1]), lon_name:slice(278-360, 326-360)}][[str(var_name) for var_name in set(var_temp.keys())][0]][:,:,:]
+                except:
+                    data[model][var][''] = data_xr[model][var].loc[{'time':slice(start_date, end_date), lat_name:slice(latlims[0], latlims[1]), lon_name:slice(278-360, 326-360)}][[str(var_name) for var_name in set(var_temp.keys())][1]][:,:,:]
 
             if model == 'ESACCI':
                 data[model][var][''] = data_xr[model][var].loc[{'time':slice(start_date, end_date), lat_name:slice(latlims[0], latlims[1],-1), lon_name:slice(278-360, 326-360)}][[str(var_name) for var_name in set(var_temp.keys())][0]][:,:,:]
@@ -1317,7 +1331,7 @@ def plot_rectangle(ax, lonmin,lonmax,latmin,latmax, col, proj, zorder=None):
 
     
 # ---------------Ploteo los rectangulos en un mapa:
-def plot_regions(regions, images_path, proj = False, lonmin = -82, lonmax = -34, latmin = -60, latmax = 13, shownames=True, namepos='top', skogul_home = '/home/julian.giles/datosskogul/'):
+def plot_regions(regions, images_path, proj = False, lonmin = -82, lonmax = -34, latmin = -60, latmax = 13, shownames=True, namepos='top', skogul_home = '/datosskogul/julian.giles/'):
     import matplotlib
     import numpy as np
     import matplotlib.pyplot as plt
