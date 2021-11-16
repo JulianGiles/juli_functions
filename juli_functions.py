@@ -17,6 +17,7 @@ def unit_multipliers(): #para ajustar las unidades de los datasets a un común
              'swr': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[-1,0], 'ERA5':[1,0]},
              't2m': {'RCA4':[1,-273.15], 'RCA4CLIM':[1,-273.15], 'LMDZ':[1,-273.15], 'LMDZCLIM':[1,-273.15], 'JRA-55':[1,-273.15], 'ERA5':[1,-273.15]},
              'evapot': {'RCA4':[24,0], 'RCA4CLIM':[24,0], 'LMDZ':[86400,0], 'LMDZCLIM':[86400,0], 'JRA-55':[0.0352512,0], 'ERA5':[-60*60*24,0], 'GLEAM+CMORPH+ERA5':[1,0], 'GLDASNOAH+CMORPH+ERA5':[1,0]},
+             'evapotpot': {'RCA4':[8,0], 'RCA4CLIM':[8,0], 'LMDZ':[86400,0], 'LMDZCLIM':[86400,0], 'JRA-55':[0.0352512,0], 'ERA5':[-60*60*24,0], 'GLEAM+CMORPH+ERA5':[1,0], 'GLDASNOAH+CMORPH+ERA5':[1,0]},
              'slp': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              
              'u1000': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
@@ -85,6 +86,7 @@ def units_labels(): # diccionario con el nombre de las unidades a usar
              'swr': '$\mathregular{W⋅m^{-2}}$', #'W/m²',
              't2m': '°C',
              'evapot': '$\mathregular{mm⋅day^{-1}}$', #'mm/day',
+             'evapotpot': '$\mathregular{mm⋅day^{-1}}$', #'mm/day',
              'slp': 'Pa',
              'v900': '$\mathregular{m⋅s^{-1}}$', #'m/s',
              'uv900': '$\mathregular{m⋅s^{-1}}$', #'m/s',
@@ -158,6 +160,7 @@ def units_labels_old(): # diccionario con el nombre de las unidades a usar
              'swr': 'W/m²',
              't2m': 'C',
              'evapot': '$\mathregular{mm⋅day^{-1}}$', #'mm/day',
+             'evapotpot': '$\mathregular{mm⋅day^{-1}}$', #'mm/day',
              'slp': 'Pa',
              'v900': 'm/s',
              'uv900': 'm/s',
@@ -241,6 +244,7 @@ def files_dict():
              'swr': 'CTL/Data/1980-2012/swr/netswr_198001_201212_sSA.nc',
              't2m': 'CTL/Data/1980-2012/t2m/t2m_1982-2012.nc',
              'evapot': 'CTL/Data/1980-2012/evapot/evapot_1982-2012.nc',
+             'evapotpot': 'CTL/Data/1980-2012/evapotpot/evapotpot_198001_201212_sSA.nc',
              'slp': 'CTL/Data/1980-2012/slp/slp_198001_201212_sSA.nc',
              'u900': 'CTL/Data/1980-2012/u-v/u900_1983-2012.nc',
              'u200': 'CTL/Data/1980-2012/u-v/u200_1983-2012.nc',
@@ -280,6 +284,7 @@ def files_dict():
              'swr': 'CLIM/Data/1980-2012/swr/netswr_198001_201212_sSA.nc',
              't2m': 'CLIM/Data/1980-2012/t2m/t2m_1982-2012_3h.nc',
              'evapot': 'CLIM/Data/1980-2012/evap_c/evap_c_1982-2012.nc',
+             'evapotpot': 'CLIM/Data/1980-2012/evapotpot/evapotpot_198001_201212_sSA.nc',
              'slp': 'CLIM/Data/1980-2012/slp/slp_198001_201212_sSA.nc',
              'u900': 'CLIM/Data/1980-2012/u-v/u900_1983-2012.nc',
              'u200': 'CLIM/Data/1980-2012/u-v/u200_1983-2012.nc',
@@ -1609,13 +1614,16 @@ def barra_whitecenter(clevs, colormap, no_extreme_colors=False):
     return barra
 
 #%%
-# ------------- FUNCION PARA LA BARRA DE COLORES CENTRADA EN CERO ------
+# ------------- FUNCION PARA LA BARRA DE COLORES CENTRADA EN CERO ------ Updated:28/10/2021
 def barra_zerocenter(clevs, colormap, no_extreme_colors=False):
     import numpy as np
     import matplotlib
     import matplotlib.colors as mcolors
     
-    clevs[int(np.where(np.abs(clevs) < 1E-10)[0])] =0
+    try:
+        clevs[int(np.where(np.abs(clevs) < 1E-10)[0])] =0
+    except:
+        print('No zero value in clevs, returning not centered colorbar')
     
     if no_extreme_colors:
         colormap = mcolors.ListedColormap(colormap(np.linspace(0.1, 0.9, 256)))
@@ -1632,10 +1640,34 @@ def barra_zerocenter(clevs, colormap, no_extreme_colors=False):
     
     return barra
 
+#%%
+def welch_t_test(data1, data2, dim, p_value=0.05):
+    ## Performs Welch's T test for the difference of means. It is an extension of Student's T test without assuming equal variances
+    # takes xarrays as inputs
+    import scipy
+    import numpy as np
+    
+    data1_std = data1.std(dim=dim)
+    data2_std = data2.std(dim=dim)
+    
+    data1_mean = data1.mean(dim=dim)
+    data2_mean = data2.mean(dim=dim)
+    
+    n1 = data1.count(dim=dim)
+    n2 = data2.count(dim=dim)
+    
+    sumvars = data1_std**2/n1 + data2_std**2/n2
+    sumvars2 = (data1_std)**4/(n1**2 *(n1-1)) + (data2_std)**4/(n2**2 *(n2-1))
+    t = (data1_mean - data2_mean)/(np.sqrt(sumvars)) # estadistico t
+    nu = np.floor(sumvars**2/sumvars2) # grados de libertad
+    signif = (t > scipy.stats.t.ppf(1-p_value/2, nu)) + (t < -scipy.stats.t.ppf(1-p_value/2, nu)) #ppf me da la funcion distribucion de probabilidad (tabla de valores)
+    return signif
+
+
 #%% Compose figure in parts
 """Así sería el uso de estas funciones
 # crear figura y axes
-fig1, ax = juli_functions.make_figure(suptitle, figsize=(5,5), general_fontsize=12)
+fig1, ax = juli_functions.make_figure(suptitle, figsize=(5,5), general_fontsize=12) #fig size in inches (width, height)
 
 # Si son muchos plots
 ax.set_visible(False)
