@@ -1569,10 +1569,9 @@ def barra_whitecenter(clevs, colormap, no_extreme_colors=False):
     import matplotlib
     import matplotlib.colors as mcolors
     
-    clevs[int(np.where(np.abs(clevs) < 1E-10)[0])] =0
 
     if no_extreme_colors:
-        colormap = mcolors.ListedColormap(colormap(np.linspace(0.05, 0.95, 256)))
+        colormap = mcolors.ListedColormap(colormap(np.linspace(0.08, 0.92, 256)))
     
     if np.sign(clevs[0]) != np.sign(clevs[-1]) and clevs[0]!=0 and clevs[-1]!=0:
     
@@ -1601,15 +1600,20 @@ def barra_whitecenter(clevs, colormap, no_extreme_colors=False):
                                            [colormap(int(round(x*colormap.N/2/clevs[-1]+colormap.N/2))) for x in clevs[int(np.where(clevs==0)[0])+1:]])
         '''            
         #v3
+        clevs[int(np.where(np.abs(clevs) < 1E-10)[0])] =0
+
+
         norm = mcolors.TwoSlopeNorm(0, clevs[0], clevs[-1])
         if np.any(clevs==0):
-            barra = mcolors.ListedColormap([colormap(int(x)) for x in norm(clevs[np.where(clevs<0)])[:-1]*colormap.N]+['white','white']+[colormap(int(x)) for x in norm(clevs[np.where(clevs>0)])*colormap.N])
+            barra = mcolors.ListedColormap([colormap(int(x)) for x in norm(clevs[np.where(clevs<0)])[:-1]*colormap.N]+['white','white']+[colormap(int(x)) for x in norm(clevs[np.where(clevs>0)])[1:]*colormap.N])
         else:
             barra = mcolors.ListedColormap([colormap(int(x)) for x in norm(clevs[np.where(clevs<0)])*colormap.N]+['white']+[colormap(int(x)) for x in norm(clevs[np.where(clevs>0)])*colormap.N])
             
         
     else:
         barra= colormap
+        # norm = mcolors.Normalize(clevs[0], clevs[-1])
+        # barra = mcolors.ListedColormap([colormap(int(x)) for x in norm(clevs)*colormap.N])
     
     return barra
 
@@ -1626,7 +1630,7 @@ def barra_zerocenter(clevs, colormap, no_extreme_colors=False):
         print('No zero value in clevs, returning not centered colorbar')
     
     if no_extreme_colors:
-        colormap = mcolors.ListedColormap(colormap(np.linspace(0.1, 0.9, 256)))
+        colormap = mcolors.ListedColormap(colormap(np.linspace(0.05, 0.95, 256)))
     
     if np.sign(clevs[0]) != np.sign(clevs[-1]) and clevs[0]!=0 and clevs[-1]!=0:
         norm = mcolors.TwoSlopeNorm(0, clevs[0], clevs[-1])
@@ -1739,7 +1743,7 @@ def plot_pcolormesh(ax1, data, lon, lat, lonproj, latproj, proj, clevs, barra, t
     ax1.yaxis.set_major_formatter(lat_formatter)
     if printlonslats[0]: ax1.set_xticks(meridians[1:-1:1], crs=proj)
     if printlonslats[1]: ax1.set_yticks(parallels[1:-1], crs=proj)
-    if gridline: ax1.gridlines(crs=proj, xlocs=meridians, ylocs=parallels, linewidth=countrywidth, linestyle='--', zorder=5)
+    if gridline: ax1.gridlines(crs=proj, xlocs=meridians, ylocs=parallels, linewidth=countrywidth, linestyle='--', zorder=1)
     ax1.set_title(title, fontsize=titlesize, loc=titleloc)
     return CS1
     
@@ -1765,10 +1769,12 @@ def plot_arrows(ax1, udata, vdata, lonproj, latproj, proj, units_labels, arrow_s
                        headlength=5, scale = arrow_scale, #Scale: Number of data units per arrow length unit, e.g., m/s per plot width; a smaller scale parameter makes the arrow longer. Default is None
                        transform=proj, **kwargs)  # (default5)
     
-    rect = matplotlib.patches.Rectangle(key_rect[0], key_rect[1], key_rect[2], facecolor='white', edgecolor='black', transform=proj) #(x,y), width, height
-    ax1.add_patch(rect)
     
-    if plot_key: qk = plt.quiverkey(Q, plot_key_pos[0], plot_key_pos[1], arrow_length, str(arrow_length)+' '+units_labels, labelpos='S', coordinates='axes', labelsep=labelsep)
+    if plot_key: 
+        rect = matplotlib.patches.Rectangle(key_rect[0], key_rect[1], key_rect[2], facecolor='white', edgecolor='black', transform=proj, zorder=2) #(x,y), width, height
+        ax1.add_patch(rect)
+        qk = plt.quiverkey(Q, plot_key_pos[0], plot_key_pos[1], arrow_length, str(arrow_length)+' '+units_labels, labelpos='S', coordinates='axes', labelsep=labelsep, zorder=10)
+
     #qk.text.set_backgroundcolor('w')
 
 def plot_line(ax1, data_x, data_y, xticks, yticks, ylims, xlabel, ylabel, label='', title='', xticksrot = 90, color=None, ls=None, **kwargs):
