@@ -1563,57 +1563,78 @@ def plot_dc_regions(models, regions, var_list, dc_reg, images_path, font_size=20
         plt.close(fig1)
         
 #%%
-# ------------- FUNCION PARA LA BARRA DE COLORES DOBLE CON CERO EN BLANCOS ------
-def barra_whitecenter(clevs, colormap, no_extreme_colors=False):
+# ------------- FUNCION PARA LA BARRA DE COLORES DOBLE CON CERO EN BLANCOS ------ Updated:26/01/2022 (added normalize as an option)
+def barra_whitecenter(clevs, colormap, no_extreme_colors=False, normalize=True):
     import numpy as np
     import matplotlib
     import matplotlib.colors as mcolors
     
 
     if no_extreme_colors:
-        colormap = mcolors.ListedColormap(colormap(np.linspace(0.08, 0.92, 256)))
+        colormap = mcolors.ListedColormap(colormap(np.linspace(0.05, 0.95, 256)))
     
-    if np.sign(clevs[0]) != np.sign(clevs[-1]) and clevs[0]!=0 and clevs[-1]!=0:
-    
-        ''' deprecated
-        mincolor = colormap(0)
-        maxcolor = colormap(250)
-        medio1 = colormap(64)
-        medio2 = colormap(155)
-        mitadbarra = abs(min(clevs))/(max(clevs)+abs(min(clevs)))
+    if normalize: # if normalize==True, normalize the colorbar according to the clevs
+        if np.sign(clevs[0]) != np.sign(clevs[-1]) and clevs[0]!=0 and clevs[-1]!=0:
         
-        barra = mcolors.LinearSegmentedColormap.from_list('BWR', [(0, mincolor),	
-                                                                      (mitadbarra/2, medio1),
-                                                                      (mitadbarra-(1-mitadbarra)/(sum(clevs>0)+1), 'white'),
-                                                                      (mitadbarra+(1-mitadbarra)/(sum(clevs>0)+1), 'white'),
-                                                                      ((1+mitadbarra)/2, medio2),
-                                                                      (1, maxcolor)])
-        #v2
-        clevs_range = clevs[-1]  - clevs[0]
-        if np.any(clevs==0):
-            barra = mcolors.ListedColormap([colormap(int(round(abs(x*colormap.N/2/clevs[0])))) for x in clevs[int(np.where(clevs==0)[0])-1:0:-1]] + 
-                                           ['white', 'white'] +
-                                           [colormap(int(round(x*colormap.N/2/clevs[-1]+colormap.N/2))) for x in clevs[int(np.where(clevs==0)[0])+1:]])
-        else:
-            barra = mcolors.ListedColormap([colormap(int(round(abs(x*colormap.N/2/clevs[0])))) for x in clevs[int(np.where(clevs==0)[0])-1:0:-1]] + 
-                                           ['white'] +
-                                           [colormap(int(round(x*colormap.N/2/clevs[-1]+colormap.N/2))) for x in clevs[int(np.where(clevs==0)[0])+1:]])
-        '''            
-        #v3
-        clevs[int(np.where(np.abs(clevs) < 1E-10)[0])] =0
-
-
-        norm = mcolors.TwoSlopeNorm(0, clevs[0], clevs[-1])
-        if np.any(clevs==0):
-            barra = mcolors.ListedColormap([colormap(int(x)) for x in norm(clevs[np.where(clevs<0)])[:-1]*colormap.N]+['white','white']+[colormap(int(x)) for x in norm(clevs[np.where(clevs>0)])[1:]*colormap.N])
-        else:
-            barra = mcolors.ListedColormap([colormap(int(x)) for x in norm(clevs[np.where(clevs<0)])*colormap.N]+['white']+[colormap(int(x)) for x in norm(clevs[np.where(clevs>0)])*colormap.N])
+            ''' deprecated
+            mincolor = colormap(0)
+            maxcolor = colormap(250)
+            medio1 = colormap(64)
+            medio2 = colormap(155)
+            mitadbarra = abs(min(clevs))/(max(clevs)+abs(min(clevs)))
             
+            barra = mcolors.LinearSegmentedColormap.from_list('BWR', [(0, mincolor),	
+                                                                          (mitadbarra/2, medio1),
+                                                                          (mitadbarra-(1-mitadbarra)/(sum(clevs>0)+1), 'white'),
+                                                                          (mitadbarra+(1-mitadbarra)/(sum(clevs>0)+1), 'white'),
+                                                                          ((1+mitadbarra)/2, medio2),
+                                                                          (1, maxcolor)])
+            #v2
+            clevs_range = clevs[-1]  - clevs[0]
+            if np.any(clevs==0):
+                barra = mcolors.ListedColormap([colormap(int(round(abs(x*colormap.N/2/clevs[0])))) for x in clevs[int(np.where(clevs==0)[0])-1:0:-1]] + 
+                                               ['white', 'white'] +
+                                               [colormap(int(round(x*colormap.N/2/clevs[-1]+colormap.N/2))) for x in clevs[int(np.where(clevs==0)[0])+1:]])
+            else:
+                barra = mcolors.ListedColormap([colormap(int(round(abs(x*colormap.N/2/clevs[0])))) for x in clevs[int(np.where(clevs==0)[0])-1:0:-1]] + 
+                                               ['white'] +
+                                               [colormap(int(round(x*colormap.N/2/clevs[-1]+colormap.N/2))) for x in clevs[int(np.where(clevs==0)[0])+1:]])
+            '''            
+            #v3
+            try: clevs[int(np.where(np.abs(clevs) < 1E-10)[0])] =0
+            except: print('No zero in clevs')
+    
+            norm = mcolors.TwoSlopeNorm(0, clevs[0], clevs[-1])
+            if np.any(clevs==0):
+                barra = mcolors.ListedColormap([colormap(int(x)) for x in norm(clevs[np.where(clevs<0)])[:-1]*colormap.N]+['white','white']+[colormap(int(x)) for x in norm(clevs[np.where(clevs>0)])[1:]*colormap.N])
+            else:
+                barra = mcolors.ListedColormap([colormap(int(x)) for x in norm(clevs[np.where(clevs<0)])*colormap.N]+['white']+[colormap(int(x)) for x in norm(clevs[np.where(clevs>0)])*colormap.N])
+                
+            
+        else:
+            #barra= colormap
+            norm = mcolors.Normalize(clevs[0], clevs[-1])
+            barra = mcolors.ListedColormap([colormap(int(x)) for x in norm(clevs)*colormap.N])
+    
+    else: # if normalize==False, do not normalize the colorbar
+        if np.sign(clevs[0]) != np.sign(clevs[-1]) and clevs[0]!=0 and clevs[-1]!=0:
         
-    else:
-        barra= colormap
-        # norm = mcolors.Normalize(clevs[0], clevs[-1])
-        # barra = mcolors.ListedColormap([colormap(int(x)) for x in norm(clevs)*colormap.N])
+            #v3
+            try: clevs[int(np.where(np.abs(clevs) < 1E-10)[0])] =0
+            except: print('No zero in clevs')
+    
+    
+            fractions_neg = np.arange(np.sum(clevs<0)-1)*0.5/(np.sum(clevs<0)-1)
+            fractions_pos = np.flip(1-np.arange(np.sum(clevs>0)-1)*0.5/(np.sum(clevs>0)-1))
+            if np.any(clevs==0):
+                barra = mcolors.ListedColormap([colormap(int(x)) for x in fractions_neg*colormap.N]+['white','white']+[colormap(int(x)) for x in fractions_pos*colormap.N])
+            else:
+                barra = mcolors.ListedColormap([colormap(int(x)) for x in fractions_neg*colormap.N]+['white']+[colormap(int(x)) for x in fractions_pos*colormap.N])
+                
+            
+        else:
+            barra= colormap
+    
     
     return barra
 
@@ -1748,7 +1769,7 @@ def plot_pcolormesh(ax1, data, lon, lat, lonproj, latproj, proj, clevs, barra, t
     return CS1
     
 def plot_arrows(ax1, udata, vdata, lonproj, latproj, proj, units_labels, arrow_spacing = 3, arrow_scale = 4000, arrow_length = 10, 
-                plot_key = True, plot_key_pos = (1, -0.1), key_rect=[(-50,-50),14,5], width=3e-3, labelsep=0.1, **kwargs):
+                plot_key = True, plot_key_pos = (1, -0.1), key_rect=[(-50,-50),14,5], width=3e-3, labelsep =0.1, **kwargs):
     import numpy as np
     from numpy import ma 
     import matplotlib.pyplot as plt
@@ -1773,9 +1794,9 @@ def plot_arrows(ax1, udata, vdata, lonproj, latproj, proj, units_labels, arrow_s
     if plot_key: 
         rect = matplotlib.patches.Rectangle(key_rect[0], key_rect[1], key_rect[2], facecolor='white', edgecolor='black', transform=proj, zorder=2) #(x,y), width, height
         ax1.add_patch(rect)
-        qk = plt.quiverkey(Q, plot_key_pos[0], plot_key_pos[1], arrow_length, str(arrow_length)+' '+units_labels, labelpos='S', coordinates='axes', labelsep=labelsep, zorder=10)
+        qk = plt.quiverkey(Q, plot_key_pos[0], plot_key_pos[1], arrow_length, str(arrow_length)+' '+units_labels, labelpos='S', coordinates='axes', labelsep=labelsep, zorder=3)
 
-    #qk.text.set_backgroundcolor('w')
+        #qk.text.set_backgroundcolor('w')
 
 def plot_line(ax1, data_x, data_y, xticks, yticks, ylims, xlabel, ylabel, label='', title='', xticksrot = 90, color=None, ls=None, **kwargs):
     import matplotlib.pyplot as plt
