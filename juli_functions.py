@@ -9,7 +9,7 @@ Created on Mon May  6 11:36:22 2019
 #%% --------- mult_hd multiplicadores para ajustar unidades -----------------
 def unit_multipliers(): #para ajustar las unidades de los datasets a un común
 
-    mult_hd = {'pre': {'RCA4':[24,0], 'RCA4CLIM':[24,0], 'LMDZ':[8,0], 'LMDZCLIM':[1,0], 'JRA-55':[8,0], 'ERA5':[24*1000,0], 'TRMM-3B42':[8,0], 'CMORPH':[8,0], 'CRU':[1/30,0], 'GLEAM+CMORPH+ERA5':[8,0], 'GLDASNOAH+CMORPH+ERA5':[8,0]},
+    mult_hd = {'pre': {'RCA4':[24,0], 'RCA4CLIM':[24,0], 'LMDZ':[8,0], 'LMDZCLIM':[1,0], 'JRA-55':[8,0], 'ERA5':[24*1000,0], 'TRMM-3B42':[8,0], 'CMORPH':[8,0], 'CRU':[1/30,0], 'GLEAM+CMORPH+ERA5':[8,0], 'GLDASNOAH+CMORPH+ERA5':[8,0], 'GLDASNOAH+ERA5':[86400,0]},
                 'pre_nodrizzle': {'RCA4':[8,0], 'RCA4CLIM':[8,0], 'LMDZ':[8,0], 'LMDZCLIM':[1,0], 'JRA-55':[8,0], 'TRMM-3B42':[8,0], 'CMORPH':[8,0]},
              'lhf': {'RCA4':[-1,0], 'RCA4CLIM':[-1,0], 'LMDZ':[-1,0],'LMDZCLIM':[-1,0], 'JRA-55':[1,0], 'ERA5':[-1,0]},
              'shf': {'RCA4':[-1,0], 'RCA4CLIM':[-1,0], 'LMDZ':[-1,0],'LMDZCLIM':[-1,0], 'JRA-55':[1,0], 'ERA5':[-1,0]},
@@ -42,7 +42,7 @@ def unit_multipliers(): #para ajustar las unidades de los datasets a un común
              'q900': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0],'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              'qu2d': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0],'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              'qv2d': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0],'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
-             'vimfc2d': {'RCA4':[86400,0], 'RCA4CLIM':[86400,0], 'LMDZ':[86400,0],'LMDZCLIM':[86400,0], 'JRA-55':[86400,0], 'ERA5':[-86400,0], 'GLEAM+CMORPH+ERA5':[-86400,0], 'GLDASNOAH+CMORPH+ERA5':[-86400,0]},
+             'vimfc2d': {'RCA4':[86400,0], 'RCA4CLIM':[86400,0], 'LMDZ':[86400,0],'LMDZCLIM':[86400,0], 'JRA-55':[86400,0], 'ERA5':[-86400,0], 'GLEAM+CMORPH+ERA5':[-86400,0], 'GLDASNOAH+CMORPH+ERA5':[-86400,0], 'GLDASNOAH+ERA5':[-86400,0]},
              'uv900conv': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0],'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[-1,0]},
              'uv850conv': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0],'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[-1,0]},
              'u10m': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
@@ -65,7 +65,7 @@ def unit_multipliers(): #para ajustar las unidades de los datasets a un común
              'gpot900': {'RCA4':[1/9.8,0], 'RCA4CLIM':[1/9.8,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              'gpot200': {'RCA4':[1/9.8,0], 'RCA4CLIM':[1/9.8,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              
-             'sm1': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0], 'GLEAM+CMORPH+ERA5':[1,0], 'GLDASNOAH+CMORPH+ERA5':[1,0]},
+             'sm1': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0], 'GLEAM+CMORPH+ERA5':[1,0], 'GLDASNOAH+CMORPH+ERA5':[1,0], 'GLDASNOAH+ERA5':[1,0]},
              'swa': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              'EF': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]}, #para pasar los datos a mm/day y correr la T a Celsius
              'EF_v2': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
@@ -73,7 +73,7 @@ def unit_multipliers(): #para ajustar las unidades de los datasets a un común
              'cloudbot': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              'totcc': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[0.01,0], 'ERA5':[1,0]},
              'lowcc': {'RCA4':[1,0], 'RCA4CLIM':[1,0], 'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[0.01,0], 'ERA5':[1,0]},
-             'orog': {'RCA4':[1/9.8,0], 'RCA4CLIM':[1/9.8,0], 'LMDZ':[1/9.8,0], 'LMDZCLIM':[1/9.8,0], 'JRA-55':[1/9.8,0], 'ERA5':[1/9.8,0], 'GLEAM+CMORPH+ERA5':[1/9.8,0], 'GLDASNOAH+CMORPH+ERA5':[1/9.8,0]}} 
+             'orog': {'RCA4':[1/9.8,0], 'RCA4CLIM':[1/9.8,0], 'LMDZ':[1/9.8,0], 'LMDZCLIM':[1/9.8,0], 'JRA-55':[1/9.8,0], 'ERA5':[1/9.8,0], 'GLEAM+CMORPH+ERA5':[1/9.8,0], 'GLDASNOAH+CMORPH+ERA5':[1/9.8,0], 'GLDASNOAH+ERA5':[1/9.8,0]}} 
     
     return mult_hd
 
@@ -446,7 +446,8 @@ def files_dict():
     files['GLEAM'] = {'sm1': 'GLEAM/v3.5a/daily/*/SMsurf_*_GLEAM_v3.5a.nc',
                       'evapot': 'GLEAM/v3.5a/daily/*/E_*_GLEAM_v3.5a.nc'}
 
-    files['GLDASNOAH'] = {'sm1': 'GLDAS_Noah_v2/*.nc'}
+    files['GLDASNOAH'] = {'sm1': 'GLDAS_Noah_v2/soil_moisture_content_1/*.nc',
+                          'pre': 'GLDAS_Noah_v2/total_precipitation_rate/*.nc'}
     
     files['ESACCI'] = {'sm1': 'ESA_CCI_SM-v06.1/COMBINED/*/ESACCI-SOILMOISTURE-L3S-SSMV-COMBINED-*-fv06.1.nc'}
 
@@ -497,7 +498,7 @@ def load_datasets (models, var_list, start_date, end_date, data_path, homepath, 
                 except: 
                     print('               '+var+' not available for '+model+', ignoring')
                     continue
-            elif model == 'ERA5' or model == 'GLEAM' or model == 'ESACCI':
+            elif model in ['ERA5', 'GLEAM', 'ESACCI', 'GLDASNOAH']:
                 try: data_xr[model][var] = xr.open_mfdataset(data_path+files[model][var], combine='by_coords', chunks={'time':chunksize})
                 except: 
                     print('               '+var+' not available for '+model+', ignoring')
@@ -614,6 +615,14 @@ def load_datasets (models, var_list, start_date, end_date, data_path, homepath, 
                 data[model][var][''] = data_xr[model][var].loc[{'time':slice(start_date, end_date), lat_name:slice(latlims[0], latlims[1],-1), lon_name:slice(278-360, 326-360)}][[str(var_name) for var_name in set(var_temp.keys())][0]][:,:,:]
 
             if model == 'GLDASNOAH':
+                if forward_timestep and var not in ['orog', 'lsmask']:
+                    if int(data_xr[model][var].coords['time'][2]-data_xr[model][var].coords['time'][1]) < 24*3600000000000 and int(data_xr[model][var].coords['time'][8]-data_xr[model][var].coords['time'][7]) < 24*3600000000000:
+                        
+                        tshift = data_xr[model][var].coords['time'][3]-data_xr[model][var].coords['time'][2] 
+                        data_xr[model][var].coords['time'] = data_xr[model][var].coords['time'] - tshift
+                    else:
+                        print('!!!!!!!!!!!!! something is not right, unable to shift timesteps !!!!!!!!!!!!!!!!')
+
                 try:
                     data[model][var][''] = data_xr[model][var].loc[{'time':slice(start_date, end_date), lat_name:slice(latlims[0], latlims[1]), lon_name:slice(278-360, 326-360)}][[str(var_name) for var_name in set(var_temp.keys())][0]][:,:,:]
                 except:
