@@ -629,7 +629,10 @@ def load_datasets (models, var_list, start_date, end_date, data_path, homepath, 
                     data[model][var][''] = data_xr[model][var].loc[{'time':slice(start_date, end_date), lat_name:slice(latlims[0], latlims[1]), lon_name:slice(278-360, 326-360)}][[str(var_name) for var_name in set(var_temp.keys())][1]][:,:,:]
 
             if model == 'ESACCI':
-                data[model][var][''] = data_xr[model][var].loc[{'time':slice(start_date, end_date), lat_name:slice(latlims[0], latlims[1],-1), lon_name:slice(278-360, 326-360)}][[str(var_name) for var_name in set(var_temp.keys())][0]][:,:,:]
+                if var == 'sm1':
+                    data[model][var][''] = data_xr[model][var].loc[{'time':slice(start_date, end_date), lat_name:slice(latlims[0], latlims[1],-1), lon_name:slice(278-360, 326-360)}]['sm'][:,:,:]
+                else:
+                    data[model][var][''] = data_xr[model][var].loc[{'time':slice(start_date, end_date), lat_name:slice(latlims[0], latlims[1],-1), lon_name:slice(278-360, 326-360)}][[str(var_name) for var_name in var_temp.keys()][0]][:,:,:]
 
 
             if var in ['orog','lsmask']:  #vuelvo al start date original
