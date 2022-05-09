@@ -1626,7 +1626,7 @@ def barra_whitecenter(clevs, colormap, no_extreme_colors=False, normalize=True):
         else:
             #barra= colormap
             norm = mcolors.Normalize(clevs[0], clevs[-1])
-            barra = mcolors.ListedColormap([colormap(int(x)) for x in norm(clevs)*colormap.N])
+            barra = mcolors.ListedColormap([colormap(int(x)) for x in norm(0.5 * (clevs[:-1] + clevs[1:]))*colormap.N])
     
     else: # if normalize==False, do not normalize the colorbar
         if np.sign(clevs[0]) != np.sign(clevs[-1]) and clevs[0]!=0 and clevs[-1]!=0:
