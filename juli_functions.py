@@ -61,7 +61,10 @@ def unit_multipliers(): #para ajustar las unidades de los datasets a un común
              'w500': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              
              't900': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
+             't850': {'RCA4':[1,0], 'RCA4CLIM':[1,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              
+             'gpot500': {'RCA4':[1/9.8,0], 'RCA4CLIM':[1/9.8,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
+             'gpot1000': {'RCA4':[1/9.8,0], 'RCA4CLIM':[1/9.8,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              'gpot900': {'RCA4':[1/9.8,0], 'RCA4CLIM':[1/9.8,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              'gpot200': {'RCA4':[1/9.8,0], 'RCA4CLIM':[1/9.8,0],'LMDZ':[1,0], 'LMDZCLIM':[1,0], 'JRA-55':[1,0], 'ERA5':[1,0]},
              
@@ -137,8 +140,11 @@ def units_labels(): # diccionario con el nombre de las unidades a usar
              'w600': '$\mathregular{Pa⋅s^{-1}}$', #'Pa/s',
              'w500': '$\mathregular{Pa⋅s^{-1}}$', #'Pa/s',
              
-             't900': 'K',
-             
+             't900': '°K',
+             't850': '°K',
+
+             'gpot500': 'gpm',
+             'gpot1000': 'gpm',
              'gpot900': 'gpm',
              'gpot200': 'gpm',
              
@@ -272,6 +278,9 @@ def files_dict():
              'precwtr': 'CTL/Data/1980-2012/precwtr/precwtr_198001_201212_sSA.nc',
              'sm1': 'CTL/Data/1980-2012/sm/sm1_1982-2012.nc',
              't900': 'CTL/Data/1980-2012/t/t900_198001_201212_sSA.nc',
+             't850': 'CTL/Data/1980-2012/t/t850_1982-2012.nc',
+             'gpot500': 'CTL/Data/1980-2012/gpot/gpot500_198001_201212_sSA.nc',
+             'gpot1000': 'CTL/Data/1980-2012/gpot/gpot1000_198001_201212_sSA.nc',
              'gpot900': 'CTL/Data/1980-2012/gpot/gpot900_198001_201212_sSA.nc',
              'gpot200': 'CTL/Data/1980-2012/gpot/gpot200_198001_201212_sSA.nc',
              'orog': 'CTL/Data/1980-2012/land_data/gpot.nc',
@@ -312,6 +321,9 @@ def files_dict():
              'precwtr': 'CLIM/Data/1980-2012/precwtr/precwtr_198001_201212_sSA.nc',
              'sm1': 'CLIM/Data/1980-2012/sm/sm1_198001_201212_sSA_fixed.nc',
              't900': 'CLIM/Data/1980-2012/t/t900_198001_201212_sSA.nc',
+             't850': 'CLIM/Data/1980-2012/t/t850_1982-2012.nc',
+             'gpot500': 'CLIM/Data/1980-2012/gpot/gpot500_198001_201212_sSA.nc',
+             'gpot1000': 'CLIM/Data/1980-2012/gpot/gpot1000_198001_201212_sSA.nc',
              'gpot900': 'CLIM/Data/1980-2012/gpot/gpot900_198001_201212_sSA.nc',
              'gpot200': 'CLIM/Data/1980-2012/gpot/gpot200_198001_201212_sSA.nc',
              'orog': 'CTL/Data/1980-2012/land_data/gpot.nc',
@@ -1337,13 +1349,13 @@ def plot_hodographs(var_x, var_y, regions, title, units_labels, images_path, fil
     
     
 # ----------------- funcion de plot rectangulos
-def plot_rectangle(ax, lonmin,lonmax,latmin,latmax, col, proj, zorder=None):
+def plot_rectangle(ax, lonmin,lonmax,latmin,latmax, col, proj, zorder=None, alpha=1, linewidth=2, **kwargs):
     import matplotlib.patches as mpatches
 	
     ax.add_patch(mpatches.Rectangle(xy=[lonmin, latmin], width=lonmax-lonmin, height=latmax-latmin,
                                 facecolor=col, fill = False,
-                                alpha=1, linewidth=2, color=col,
-                                transform=proj, zorder=zorder)
+                                alpha=alpha, linewidth=linewidth, color=col,
+                                transform=proj, zorder=zorder, **kwargs)
              )
 
     
